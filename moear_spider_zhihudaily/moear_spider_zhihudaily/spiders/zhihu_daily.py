@@ -78,11 +78,9 @@ class ZhihuDailySpider(scrapy.Spider):
 
             url = 'http://news-at.zhihu.com/api/4/news/{}'.format(item['id'])
             request = scrapy.Request(url, callback=self.parse_article)
-            request.meta['item'] = {
-                'post': {
-                    'spider': ZhihuDailySpider.name,
-                    'date': date,
-                },
+            request.meta['post'] = {
+                'spider': ZhihuDailySpider.name,
+                'date': date,
                 'meta': {
                     'spider.zhihu_daily.id': item.get('id', ''),
                     'spider.zhihu_daily.top': item.get('top', False),
