@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import datetime
+import json
 
 
 class ZhihuDailySpider(scrapy.Spider):
@@ -48,4 +49,43 @@ class ZhihuDailySpider(scrapy.Spider):
                 self.start_urls = []
 
     def parse(self, response):
-        pass
+        content_raw = response.body.decode()
+        self.logger.debug('响应body原始数据：{}'.format(content_raw))
+        content = json.loads(content_raw, encoding='UTF-8')
+        self.logger.debug(content)
+
+        # 文章发布日期
+        date = datetime.datetime.strptime(content['date'], '%Y%m%d')
+
+        strftime = datetime.datetime.strftime("%Y-%m-%d", date)
+        self.logger.info('日期：{}'.format(strftime))
+
+        # 处理头条文章列表，将其 `top` 标记到相应 __story__ 中
+        if 'top_stories' in content:
+            self.logger.info('处理头条文章')
+            for item in content['top_stories']:
+                for story in content['stories']:
+                    if item['id'] == story['id']:
+                        story['top'] = True
+                        break
+                self.logger.debug(item)
+
+        # 处理今日文章，并抛出具体文章请求
+        self.logger.info('处理今日文章，共{:>2}篇'.format(
+            len(content['stories'])))
+        for item in content['stories']:
+            self.logger.info(item)
+
+            url = 'http://news-at.zhihu.com/api/4/news/{}'.format(item['id'])
+            request = scrapy.Request(url, callback=self.parse_article)
+            request.meta['item'] = {
+                'post': {
+                    'spider': ZhihuDailySpider.name,
+                    'date': date,
+                },
+                'meta': {
+                    'spider.zhihu_daily.id': item.get('id', ''),
+                    'spider.zhihu_daily.top': item.get('top', False),
+                }
+            }
+            yield request
