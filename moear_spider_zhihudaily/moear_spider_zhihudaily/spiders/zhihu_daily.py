@@ -82,10 +82,16 @@ class ZhihuDailySpider(scrapy.Spider):
             request.meta['post'] = {
                 'spider': ZhihuDailySpider.name,
                 'date': date,
-                'meta': {
-                    'spider.zhihu_daily.id': item.get('id', ''),
-                    'spider.zhihu_daily.top': item.get('top', 0),
-                }
+                'meta': [
+                    {
+                        'name': 'spider.zhihu_daily.id',
+                        'value': item.get('id', '')
+                    },
+                    {
+                        'name': 'spider.zhihu_daily.top',
+                        'value': item.get('top', 0),
+                    }
+                ]
             }
             yield request
 
@@ -112,8 +118,10 @@ class ZhihuDailySpider(scrapy.Spider):
         # 继续填充post数据
         image_back = content.get('images', [None])[0]
         if image_back:
-            post['meta']['moear.cover_image_slug'] = content.get(
-                'image', image_back)
+            post['meta'].append({
+                'name': 'moear.cover_image_slug',
+                'value': content.get('image', image_back),
+            })
         self.logger.debug(post)
 
         yield post
