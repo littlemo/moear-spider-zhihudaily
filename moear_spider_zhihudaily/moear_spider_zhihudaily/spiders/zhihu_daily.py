@@ -57,7 +57,7 @@ class ZhihuDailySpider(scrapy.Spider):
         # 文章发布日期
         date = datetime.datetime.strptime(content['date'], '%Y%m%d')
 
-        strftime = datetime.datetime.strftime("%Y-%m-%d", date)
+        strftime = date.strftime("%Y-%m-%d")
         self.logger.info('日期：{}'.format(strftime))
 
         # 处理头条文章列表，将其 `top` 标记到相应 __story__ 中
