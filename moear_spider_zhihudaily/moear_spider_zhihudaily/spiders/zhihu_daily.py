@@ -2,6 +2,7 @@
 import scrapy
 import datetime
 import json
+from bs4 import BeautifulSoup
 
 
 class ZhihuDailySpider(scrapy.Spider):
@@ -105,7 +106,8 @@ class ZhihuDailySpider(scrapy.Spider):
             self.logger.warn('遇到站外文章，单独处理 - {}'.format(post['title']))
             return post
 
-        post['content'] = content.get('body', '')
+        post['content'] = str(BeautifulSoup(
+            content.get('body', ''), 'lxml').div)
 
         # 继续填充post数据
         image_back = content.get('images', [None])[0]
