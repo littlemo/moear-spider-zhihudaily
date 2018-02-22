@@ -66,7 +66,7 @@ class ZhihuDailySpider(scrapy.Spider):
             for item in content['top_stories']:
                 for story in content['stories']:
                     if item['id'] == story['id']:
-                        story['top'] = True
+                        story['top'] = 1
                         break
                 self.logger.debug(item)
 
@@ -83,7 +83,7 @@ class ZhihuDailySpider(scrapy.Spider):
                 'date': date,
                 'meta': {
                     'spider.zhihu_daily.id': item.get('id', ''),
-                    'spider.zhihu_daily.top': item.get('top', False),
+                    'spider.zhihu_daily.top': item.get('top', 0),
                 }
             }
             yield request
