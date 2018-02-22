@@ -77,7 +77,7 @@ class ZhihuDailySpider(scrapy.Spider):
             self.logger.info(item)
 
             url = 'http://news-at.zhihu.com/api/4/news/{}'.format(item['id'])
-            request = scrapy.Request(url, callback=self.parse_article)
+            request = scrapy.Request(url, callback=self.parse_post)
             request.meta['post'] = {
                 'spider': ZhihuDailySpider.name,
                 'date': date,
@@ -87,3 +87,31 @@ class ZhihuDailySpider(scrapy.Spider):
                 }
             }
             yield request
+
+    def parse_post(self, response):
+        content = json.loads(response.body.decode(), encoding='UTF-8')
+        post = response.meta['post']
+
+        post['origin_url'] = content.get('share_url', '')
+        if not all([post['origin_url']]):
+            raise ValueError('原文地址为空')
+
+        post['title'] = content.get('title', '')
+        if not all([post['title']]):
+            raise ValueError('文章标题为空 - {}'.format(post.get('origin_url')))
+
+        # 单独处理type字段为1的情况，即该文章为站外转发文章
+        if content.get('type') == 1:
+            self.logger.warn('遇到站外文章，单独处理 - {}'.format(post['title']))
+            return post
+
+        post['content'] = content.get('body', '')
+
+        # 继续填充post数据
+        image_back = content.get('images', [None])[0]
+        if image_back:
+            post['meta']['moear.cover_image_slug'] = content.get(
+                'image', image_back)
+        self.logger.debug(post)
+
+        yield post
