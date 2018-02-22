@@ -40,6 +40,9 @@ USER_AGENTS = [
     "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 ]
 
+# 日志打印级别
+LOG_LEVEL = 'INFO'
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
