@@ -112,8 +112,13 @@ class ZhihuDailySpider(scrapy.Spider):
             self.logger.warn('遇到站外文章，单独处理 - {}'.format(post['title']))
             return post
 
-        post['content'] = str(BeautifulSoup(
-            content.get('body', ''), 'lxml').div)
+        soup = BeautifulSoup(content.get('body', ''), 'lxml')
+        author_obj = soup.select_one('span.author')
+        self.logger.debug(author_obj)
+        if author_obj and author_obj.string:
+            post['author'] = soup.select_one(
+                'span.author').string.rstrip('，, ')
+        post['content'] = str(soup.div)
 
         # 继续填充post数据
         image_back = content.get('images', [None])[0]
