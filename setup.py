@@ -1,7 +1,7 @@
 # from os.path import dirname, join
 from setuptools import setup, find_packages
 
-root_pack = 'moear.spider.zhihudaily'
+root_pack = 'moear.spider.zhihudaily.entry'
 
 
 setup(
