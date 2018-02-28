@@ -1,5 +1,5 @@
 from moear.spider.common import base
-from moear_spider_zhihudaily.spiders import zhihu_daily as zhihu
+from .moear_spider_zhihudaily.spiders import zhihu_daily as zhihu
 
 import os
 import json
