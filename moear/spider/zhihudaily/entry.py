@@ -1,5 +1,5 @@
 from moear.spider.common import base
-from .moear_spider_zhihudaily.spiders import zhihu_daily as zhihu
+from .moear_spider_zhihudaily.spiders.zhihu_daily import ZhihuDailySpider
 
 import os
 import json
@@ -22,11 +22,11 @@ class ZhihuDaily(base.SpiderBase):
         :returns: dict, 返回符合接口定义的字典数据
         """
         return {
-            'name': zhihu.name,
-            'display_name': zhihu.display_name,
-            'author': zhihu.author,
-            'email': zhihu.email,
-            'description': zhihu.description,
+            'name': ZhihuDailySpider.name,
+            'display_name': ZhihuDailySpider.display_name,
+            'author': ZhihuDailySpider.author,
+            'email': ZhihuDailySpider.email,
+            'description': ZhihuDailySpider.description,
         }
 
     def crawl(self):
