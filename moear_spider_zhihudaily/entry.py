@@ -3,8 +3,9 @@ import json
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
-from moear.spider.common import base
-from .moear_spider_zhihudaily.spiders.zhihu_daily import ZhihuDailySpider
+from moear_spider_common import base
+from .moear_spider_zhihudaily.spiders.zhihu_daily \
+    import ZhihuDailySpider as zhihu
 
 
 class ZhihuDaily(base.SpiderBase):
@@ -22,11 +23,11 @@ class ZhihuDaily(base.SpiderBase):
         :returns: dict, 返回符合接口定义的字典数据
         """
         return {
-            'name': ZhihuDailySpider.name,
-            'display_name': ZhihuDailySpider.display_name,
-            'author': ZhihuDailySpider.author,
-            'email': ZhihuDailySpider.email,
-            'description': ZhihuDailySpider.description,
+            'name': zhihu.name,
+            'display_name': zhihu.display_name,
+            'author': zhihu.author,
+            'email': zhihu.email,
+            'description': zhihu.description,
         }
 
     def crawl(self):
