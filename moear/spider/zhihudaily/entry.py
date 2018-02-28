@@ -1,10 +1,10 @@
-from moear.spider.common import base
-from .moear_spider_zhihudaily.spiders.zhihu_daily import ZhihuDailySpider
-
 import os
 import json
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+
+from moear.spider.common import base
+from .moear_spider_zhihudaily.spiders.zhihu_daily import ZhihuDailySpider
 
 
 class ZhihuDaily(base.SpiderBase):
