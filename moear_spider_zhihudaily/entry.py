@@ -1,10 +1,12 @@
 import os
 import json
+
+from scrapy.settings import Settings
 from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
 
 from moear_spider_common import base
-from .moear_spider_zhihudaily.spiders.zhihu_daily \
+from .zhihudaily import settings as config
+from .zhihudaily.spiders.zhihu_daily \
     import ZhihuDailySpider as zhihu
 
 
@@ -43,7 +45,8 @@ class ZhihuDaily(base.SpiderBase):
         tmp_file = os.path.join(BASE_DIR, 'test.json')
 
         # 获取并修改项目设置
-        setting = get_project_settings()
+        setting = Settings()
+        setting.setmodule(config)
         setting.set(
             'FEED_URI',
             'file://{file}'.format(file=tmp_file))
