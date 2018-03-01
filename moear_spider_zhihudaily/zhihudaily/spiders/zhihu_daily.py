@@ -115,8 +115,12 @@ class ZhihuDailySpider(scrapy.Spider):
         soup = BeautifulSoup(content.get('body', ''), 'lxml')
         author_obj = soup.select('span.author')
         self.logger.debug(author_obj)
-        if author_obj and len(author_obj) == 1 and author_obj[0].string:
-            post['author'] = author_obj[0].string.rstrip('，, ')
+        if author_obj:
+            author_list = []
+            for author in author_obj:
+                author_list.append(
+                    author.string.rstrip('，, ').replace('，', ','))
+            post['author'] = '，'.join(author_list)
         post['content'] = str(soup.div)
 
         # 继续填充post数据
