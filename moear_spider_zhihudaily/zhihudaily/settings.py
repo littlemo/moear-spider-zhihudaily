@@ -72,13 +72,13 @@ COOKIES_ENABLED = False
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'zhihudaily.middlewares.MoearSpiderZhihudailySpiderMiddleware': 543,
+#    'moear_spider_zhihudaily.zhihudaily.middlewares.MoearSpiderZhihudailySpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'zhihudaily.middlewares.MoearSpiderZhihudailyDownloaderMiddleware': 543,
+#    'moear_spider_zhihudaily.zhihudaily.middlewares.MoearSpiderZhihudailyDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -90,7 +90,7 @@ COOKIES_ENABLED = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'zhihudaily.pipelines.MoearSpiderZhihudailyPipeline': 300,
+#    'moear_spider_zhihudaily.zhihudaily.pipelines.MoearSpiderZhihudailyPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
