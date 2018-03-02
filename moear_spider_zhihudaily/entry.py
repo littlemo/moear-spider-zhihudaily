@@ -14,7 +14,7 @@ class ZhihuDaily(base.SpiderBase):
     知乎日报爬虫插件
     """
 
-    def register(self):
+    def register(self, *args, **kwargs):
         """
         注册
         ----
@@ -31,7 +31,7 @@ class ZhihuDaily(base.SpiderBase):
             'description': zhihu.description,
         }
 
-    def crawl(self):
+    def crawl(self, *args, **kwargs):
         """
         爬取
         ----
@@ -57,7 +57,7 @@ class ZhihuDaily(base.SpiderBase):
         print('抓取完毕！')
         return content
 
-    def format(self, data):
+    def format(self, data, *args, **kwargs):
         """
         格式化
         ------
