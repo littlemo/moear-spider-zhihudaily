@@ -1,5 +1,6 @@
 import os
 import json
+import tempfile
 
 from moear_spider_common import base
 from .zhihudaily import settings as config
@@ -39,23 +40,20 @@ class ZhihuDaily(base.SpiderBase):
 
         :returns: dict, 返回符合接口定义的字典数据
         """
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        tmp_file = os.path.join(BASE_DIR, 'test.json')
+        content = []
+        temp = tempfile.NamedTemporaryFile(mode='w+t')
 
-        # 获取并修改项目设置
+        try:
+            print('temp.name => {}'.format(temp.name))
+            crawler = CrawlerScript(temp.name)
+            crawler.crawl()
 
-        if os.path.exists(tmp_file):
-            os.remove(tmp_file)
-            print('移除已存在的临时文件')
-
-        crawler = CrawlerScript(tmp_file)
-        crawler.crawl()
-
-        with open(tmp_file, 'r') as f:
-            rc = f.read()
+            temp.seek(0)
+            rc = temp.read()
             content = json.loads(rc, encoding='UTF-8')
+        finally:
+            temp.close()
 
-        os.remove(tmp_file)
         print('抓取完毕！')
         return content
 
