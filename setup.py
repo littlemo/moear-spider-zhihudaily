@@ -29,7 +29,7 @@ setup(
     ],
     entry_points={
         'moear.spider': [
-            'zhihudaily = {}:ZhihuDaily'.format(root_pack),
+            'zhihu_daily = {}:ZhihuDaily'.format(root_pack),
         ],
     },
     classifiers=[
