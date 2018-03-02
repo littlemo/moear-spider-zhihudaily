@@ -1,13 +1,11 @@
 import os
 import json
 
-from scrapy.settings import Settings
-from scrapy.crawler import CrawlerProcess
-
 from moear_spider_common import base
 from .zhihudaily import settings as config
 from .zhihudaily.spiders.zhihu_daily \
     import ZhihuDailySpider as zhihu
+from .crawler_script import CrawlerScript
 
 
 class ZhihuDaily(base.SpiderBase):
@@ -45,20 +43,13 @@ class ZhihuDaily(base.SpiderBase):
         tmp_file = os.path.join(BASE_DIR, 'test.json')
 
         # 获取并修改项目设置
-        setting = Settings()
-        setting.setmodule(config)
-        setting.set(
-            'FEED_URI',
-            'file://{file}'.format(file=tmp_file))
-
-        # 创建爬取处理器
-        process = CrawlerProcess(setting)
 
         if os.path.exists(tmp_file):
             os.remove(tmp_file)
             print('移除已存在的临时文件')
-        process.crawl('zhihu_daily')
-        process.start()
+
+        crawler = CrawlerScript(tmp_file)
+        crawler.crawl()
 
         with open(tmp_file, 'r') as f:
             rc = f.read()
