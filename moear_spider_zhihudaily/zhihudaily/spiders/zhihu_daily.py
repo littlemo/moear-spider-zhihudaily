@@ -79,7 +79,7 @@ class ZhihuDailySpider(scrapy.Spider):
 
             url = 'http://news-at.zhihu.com/api/4/news/{}'.format(item['id'])
             request = scrapy.Request(url, callback=self.parse_post)
-            request.meta['post'] = {
+            post_dict = {
                 'spider': ZhihuDailySpider.name,
                 'date': date,
                 'meta': [
@@ -87,12 +87,14 @@ class ZhihuDailySpider(scrapy.Spider):
                         'name': 'spider.zhihu_daily.id',
                         'value': item.get('id', '')
                     },
-                    {
-                        'name': 'spider.zhihu_daily.top',
-                        'value': item.get('top', 0),
-                    }
                 ]
             }
+            if item.get('top'):
+                post_dict['meta'].append({
+                    'name': 'spider.zhihu_daily.top',
+                    'value': item.get('top', 0),
+                })
+            request.meta['post'] = post_dict
             yield request
 
     def parse_post(self, response):
