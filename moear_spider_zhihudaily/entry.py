@@ -1,9 +1,7 @@
-import os
 import json
 import tempfile
 
 from moear_spider_common import base
-from .zhihudaily import settings as config
 from .zhihudaily.spiders.zhihu_daily \
     import ZhihuDailySpider as zhihu
 from .crawler_script import CrawlerScript
