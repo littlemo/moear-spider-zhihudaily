@@ -1,4 +1,3 @@
-import json
 import tempfile
 
 from moear_spider_common import base
@@ -36,9 +35,8 @@ class ZhihuDaily(base.SpiderBase):
 
         执行爬取操作，并阻塞直到爬取完成，返回结果数据
 
-        :returns: dict, 返回符合接口定义的字典数据
+        :returns: json, 返回符合接口定义的JSON包字符串
         """
-        content = []
         temp = tempfile.NamedTemporaryFile(mode='w+t')
 
         try:
@@ -47,8 +45,7 @@ class ZhihuDaily(base.SpiderBase):
             crawler.crawl()
 
             temp.seek(0)
-            rc = temp.read()
-            content = json.loads(rc, encoding='UTF-8')
+            content = temp.read()
         finally:
             temp.close()
 
