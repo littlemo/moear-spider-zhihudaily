@@ -120,6 +120,7 @@ class ZhihuDailySpider(scrapy.Spider):
             for author in author_obj:
                 author_list.append(
                     author.string.rstrip('，, ').replace('，', ','))
+            author_list = list(set(author_list))
             post['author'] = '，'.join(author_list)
         post['content'] = str(soup.div)
 
