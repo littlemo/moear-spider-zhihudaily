@@ -26,6 +26,12 @@ class ZhihuDaily(base.SpiderBase):
             'author': zhihu.author,
             'email': zhihu.email,
             'description': zhihu.description,
+            'meta': {
+                'package': 'mobi',
+                'package_support': [
+                    'mobi',
+                ],
+            }
         }
 
     def crawl(self, *args, **kwargs):
