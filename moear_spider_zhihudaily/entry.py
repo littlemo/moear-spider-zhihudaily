@@ -1,4 +1,5 @@
 import tempfile
+from collections import OrderedDict
 
 from moear_spider_common import base
 from .zhihudaily.spiders.zhihu_daily \
@@ -70,4 +71,29 @@ class ZhihuDaily(base.SpiderBase):
 
         :returns: dict, 返回符合mobi打包需求的定制化数据结构
         """
-        pass
+        sections = OrderedDict()
+        hot_list = []
+        normal_list = []
+        for item in data:
+            meta = item.get('meta', [])
+
+            # 如果标题为空，则迭代下一条目
+            if not item.get('title'):
+                continue
+
+            # (title, brief, thumbnail, content)
+            post = (
+                item.get('title', ''),
+                '',
+                meta.get('moear.cover_image_slug', ''),
+                item.get('content', ''))
+            if meta.get('spider.zhihu_daily.top', '0') == '1':
+                hot_list.append(post)
+            else:
+                normal_list.append(post)
+
+        if hot_list:
+            sections.setdefault('热文', hot_list)
+        if normal_list:
+            sections.setdefault('文章', normal_list)
+        return sections
