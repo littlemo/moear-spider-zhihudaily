@@ -27,10 +27,10 @@ class ZhihuDaily(base.SpiderBase):
             'email': zhihu.email,
             'description': zhihu.description,
             'meta': {
-                'package': 'mobi',
-                'package_support': [
-                    'mobi',
-                ],
+                'package_module': 'mobi',
+                'package_settings': {
+                    'mobi': {},
+                },
             }
         }
 
