@@ -75,7 +75,11 @@ class ZhihuDaily(base.SpiderBase):
         hot_list = []
         normal_list = []
         for item in data:
+            meta_dict = {}
             meta = item.get('meta', [])
+            for m in meta:
+                for (k, v) in m.items():
+                    meta_dict[m['name']] = m.get('value')
 
             # 如果标题为空，则迭代下一条目
             if not item.get('title'):
@@ -85,9 +89,9 @@ class ZhihuDaily(base.SpiderBase):
             post = (
                 item.get('title', ''),
                 '',
-                meta.get('moear.cover_image_slug', ''),
+                meta_dict.get('moear.cover_image_slug', ''),
                 item.get('content', ''))
-            if meta.get('spider.zhihu_daily.top', '0') == '1':
+            if str(meta_dict.get('spider.zhihu_daily.top', '0')) == '1':
                 hot_list.append(post)
             else:
                 normal_list.append(post)
