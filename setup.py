@@ -19,12 +19,12 @@ setup(
     zip_safe=False,
     license='GPLv3',
     provides=[
-        'moear.spider',
+        'moear.api',
     ],
     install_requires=[
         'Scrapy~=1.5.0',
         'beautifulsoup4~=4.6.0',
-        'moear-spider-common~=1.0.0',
+        'moear-api-common~=1.0.0',
     ],
     entry_points={
         'moear.spider': [

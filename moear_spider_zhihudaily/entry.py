@@ -1,7 +1,7 @@
 import tempfile
 from collections import OrderedDict
 
-from moear_spider_common import base
+from moear_api_common import base
 from .zhihudaily.spiders.zhihu_daily \
     import ZhihuDailySpider as zhihu
 from .crawler_script import CrawlerScript
