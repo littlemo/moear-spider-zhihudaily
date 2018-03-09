@@ -1,3 +1,4 @@
+import os
 import tempfile
 from collections import OrderedDict
 
@@ -5,6 +6,9 @@ from moear_api_common import base
 from .zhihudaily.spiders.zhihu_daily \
     import ZhihuDailySpider as zhihu
 from .crawler_script import CrawlerScript
+
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 class ZhihuDaily(base.SpiderBase):
@@ -30,7 +34,14 @@ class ZhihuDaily(base.SpiderBase):
             'meta': {
                 'package_module': 'mobi',
                 'package_settings': {
-                    'mobi': {},
+                    'mobi': {
+                        'language': 'zh-cn',
+                        'book_mode': 'periodical',  # 'periodical' | 'comic'
+                        'img_cover': os.path.join(
+                            base_dir, 'images', 'cv_zhihudaily.jpg'),
+                        'img_masthead': os.path.join(
+                            base_dir, 'images', 'mh_zhihudaily.gif'),
+                    },
                 },
             }
         }
