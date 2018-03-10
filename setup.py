@@ -11,7 +11,7 @@ setup(
     maintainer='littlemo',
     maintainer_email='moore@moorehy.com',
     version='1.0.0',
-    description='MoEar扩展爬虫功能插件的通用组件',
+    description='MoEar扩展爬虫功能插件 - 知乎日报',
     long_description='test',
     keywords='moear scrapy',
     packages=find_packages(exclude=('docs', 'tests', 'tests.*')),
