@@ -19,7 +19,9 @@ class ZhihuDailySpider(scrapy.Spider):
     email = "moore@moorehy.com"
 
     # 描述信息，长度无限制，Spider每次运行时更新
-    description = "每天三次，每次七分钟。在中国，资讯类移动应用的人均阅读时长是 5 分钟，而在知乎日报，这个数字是 21"
+    description = \
+        "每天三次，每次七分钟。在中国，资讯类移动应用的人均阅读时长是 5 分钟，" \
+        "而在知乎日报，这个数字是 21"
 
     allowed_domains = ['zhihu.com']
 
