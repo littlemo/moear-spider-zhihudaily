@@ -35,8 +35,8 @@ class ZhihuDaily(base.SpiderBase):
                 'package_module': 'mobi',
                 'package_settings': {
                     'mobi': {
-                        'language': 'zh-cn',
-                        'book_mode': 'periodical',  # 'periodical' | 'comic'
+                        'language': 'zh-CN',
+                        'book_mode': 'periodical',  # 'periodical' | 'book'
                         'img_cover': os.path.join(
                             base_dir, 'images', 'cv_zhihudaily.jpg'),
                         'img_masthead': os.path.join(
