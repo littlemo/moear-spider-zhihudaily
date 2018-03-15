@@ -97,16 +97,13 @@ class ZhihuDaily(base.SpiderBase):
             if not item.get('title'):
                 continue
 
-            # (title, brief, thumbnail, content)
-            post = (
-                item.get('title', ''),
-                '',
-                meta_dict.get('moear.cover_image_slug', ''),
-                item.get('content', ''))
-            if str(meta_dict.get('spider.zhihu_daily.top', '0')) == '1':
-                hot_list.append(post)
+            # 从item中提取出section分组
+            top = meta_dict.pop('spider.zhihu_daily.top', '0')
+            item['meta'] = meta_dict
+            if str(top) == '1':
+                hot_list.append(item)
             else:
-                normal_list.append(post)
+                normal_list.append(item)
 
         if hot_list:
             sections.setdefault('热文', hot_list)
