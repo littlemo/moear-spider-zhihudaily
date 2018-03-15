@@ -41,6 +41,7 @@ class ZhihuDaily(base.SpiderBase):
                             base_dir, 'images', 'cv_zhihudaily.jpg'),
                         'img_masthead': os.path.join(
                             base_dir, 'images', 'mh_zhihudaily.gif'),
+                        'image_filter': ['equation\?tex='],
                     },
                 },
             }
