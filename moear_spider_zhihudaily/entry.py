@@ -8,7 +8,9 @@ from .zhihudaily.spiders.zhihu_daily \
 from .crawler_script import CrawlerScript
 
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
+_base_dir = os.path.dirname(os.path.abspath(__file__))
+_assets_dir = os.path.join(_base_dir, 'assets')
+_images_path = os.path.join(_assets_dir, 'images')
 
 
 class ZhihuDaily(base.SpiderBase):
@@ -36,9 +38,9 @@ class ZhihuDaily(base.SpiderBase):
                 'language': 'zh-CN',
                 'book_mode': 'periodical',  # 'periodical' | 'book'
                 'img_cover': os.path.join(
-                    base_dir, 'images', 'cv_zhihudaily.jpg'),
+                    _images_path, 'cv_zhihudaily.jpg'),
                 'img_masthead': os.path.join(
-                    base_dir, 'images', 'mh_zhihudaily.gif'),
+                    _images_path, 'mh_zhihudaily.gif'),
                 'image_filter': ['equation\?tex='],
             }
         }
