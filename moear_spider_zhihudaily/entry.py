@@ -11,6 +11,7 @@ from .crawler_script import CrawlerScript
 _base_dir = os.path.dirname(os.path.abspath(__file__))
 _assets_dir = os.path.join(_base_dir, 'assets')
 _images_path = os.path.join(_assets_dir, 'images')
+_css_path = os.path.join(_assets_dir, 'css')
 
 
 class ZhihuDaily(base.SpiderBase):
@@ -42,6 +43,8 @@ class ZhihuDaily(base.SpiderBase):
                 'img_masthead': os.path.join(
                     _images_path, 'mh_zhihudaily.gif'),
                 'image_filter': ['equation\?tex='],
+                'css_package': os.path.join(
+                    _css_path, 'package.css')
             }
         }
 
