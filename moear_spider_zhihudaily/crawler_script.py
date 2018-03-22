@@ -1,7 +1,7 @@
 from scrapy.crawler import CrawlerProcess
 from scrapy.settings import Settings
 from billiard import Process
-from .zhihudaily import settings as config
+from . import settings as config
 
 
 class CrawlerScript():
