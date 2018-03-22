@@ -73,8 +73,8 @@ class ZhihuDaily(base.SpiderBase):
 
         try:
             print('temp.name => {}'.format(temp.name))
-            crawler = CrawlerScript(temp.name)
-            crawler.crawl()
+            crawler = CrawlerScript()
+            crawler.crawl(output_file=temp.name)
 
             temp.seek(0)
             content = temp.read()

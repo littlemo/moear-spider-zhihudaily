@@ -6,20 +6,17 @@ from . import settings as config
 
 class CrawlerScript():
 
-    def __init__(self, tmp_file):
+    def __init__(self):
         settings = Settings()
         settings.setmodule(config)
-        settings.set(
-            'FEED_URI',
-            'file://{file}'.format(file=tmp_file))
         self.crawler = CrawlerProcess(settings)
 
-    def _crawl(self):
-        self.crawler.crawl('zhihu_daily')
+    def _crawl(self, *args, **kwargs):
+        self.crawler.crawl('zhihu_daily', *args, **kwargs)
         self.crawler.start()
         self.crawler.stop()
 
-    def crawl(self):
-        p = Process(target=self._crawl)
+    def crawl(self, *args, **kwargs):
+        p = Process(target=self._crawl, args=args, kwargs=kwargs)
         p.start()
         p.join()
