@@ -1,4 +1,5 @@
 import sys
+import json
 import logging
 import unittest
 
@@ -28,6 +29,11 @@ class TestSpiderEntryMethods(unittest.TestCase):
         self.assertIsInstance(rc, dict)
         for item in rc.values():
             self.assertIsNotNone(item)
+
+    def test_100_crawl(self):
+        rc = entry.ZhihuDaily().crawl()
+        data = json.loads(rc)
+        log.info(data)
 
     def test_200_format(self):
         """测试文章列表格式化方法"""
