@@ -1,5 +1,4 @@
 import sys
-import json
 import logging
 import unittest
 
@@ -7,7 +6,7 @@ from moear_spider_zhihudaily import entry
 
 
 log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 format = logging.Formatter("%(asctime)s - %(message)s")  # output format
 sh = logging.StreamHandler(stream=sys.stdout)  # output to standard output
 sh.setFormatter(format)
@@ -32,8 +31,7 @@ class TestSpiderEntryMethods(unittest.TestCase):
 
     def test_100_crawl(self):
         rc = entry.ZhihuDaily().crawl()
-        data = json.loads(rc)
-        log.info(data)
+        log.debug(rc)
 
     def test_200_format(self):
         """测试文章列表格式化方法"""
