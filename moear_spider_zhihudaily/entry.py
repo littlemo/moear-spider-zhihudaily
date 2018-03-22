@@ -2,6 +2,8 @@ import os
 import tempfile
 from collections import OrderedDict
 
+from bs4 import BeautifulSoup
+
 from moear_api_common import base
 from .zhihudaily.spiders.zhihu_daily \
     import ZhihuDailySpider as zhihu
@@ -97,6 +99,16 @@ class ZhihuDaily(base.SpiderBase):
             # 如果标题为空，则迭代下一条目
             if not item.get('title'):
                 continue
+
+            # 处理文章摘要，若为空则根据正文自动生成并填充
+            if not item.get('excerpt') and item.get('content'):
+                soup = BeautifulSoup(item.get('content'), "lxml")
+                word_limit = self.options.get(
+                    'toc_desc_word_limit', 500)
+                content_list = soup.select('div.content')
+                content_list = [content.get_text() for content in content_list]
+                excerpt = ' '.join(content_list)[:word_limit]
+                item['excerpt'] = excerpt
 
             # 从item中提取出section分组
             top = meta_dict.pop('spider.zhihu_daily.top', '0')
