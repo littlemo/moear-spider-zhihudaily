@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
 import scrapy
 import datetime
 import json
 from bs4 import BeautifulSoup
+
+from moear_api_common import utils
 
 
 class ZhihuDailySpider(scrapy.Spider):
@@ -28,7 +31,10 @@ class ZhihuDailySpider(scrapy.Spider):
     def __init__(self, date=None, *args, **kwargs):
         """
         知乎日报爬虫类，用于爬取&解析知乎日报页面&相关协议
-        :param date:  爬取日期，命令行参数，默认为空，即爬取当日最新，内容格式：yyyymmdd
+        :param date str: 爬取日期，命令行参数，默认为空，即爬取当日最新，内容格式：yyyymmdd
+        :param output_file str: (可选，关键字参数)结果输出文件，
+            用以将最终爬取到的数据写入到指定文件中，默认为 moear_spider_zhihudaily
+            下的 build 路径，建议仅作为测试时使用
         """
         super(ZhihuDailySpider, self).__init__(*args, **kwargs)
 
@@ -50,6 +56,17 @@ class ZhihuDailySpider(scrapy.Spider):
             except ValueError:
                 self.logger.error('指定的爬取日期错误(yyymmdd)：{}'.format(date))
                 self.start_urls = []
+
+        self.item_list = []
+        self.output_file = kwargs.get('output_file', None)
+        if not self.output_file:
+            _base_dir = os.path.dirname(os.path.dirname(
+                os.path.abspath(__file__)))
+            _output_file_default = os.path.join(
+                _base_dir, 'build', 'output.json')
+            utils.mkdirp(os.path.dirname(_output_file_default))
+            self.output_file = _output_file_default
+        self.logger.info('输出文件路径: {}'.format(self.output_file))
 
     def parse(self, response):
         content_raw = response.body.decode()
@@ -83,7 +100,7 @@ class ZhihuDailySpider(scrapy.Spider):
             request = scrapy.Request(url, callback=self.parse_post)
             post_dict = {
                 'spider': ZhihuDailySpider.name,
-                'date': date,
+                'date': date.strftime("%Y-%m-%d %H:%M:%S"),
                 'meta': [
                     {
                         'name': 'spider.zhihu_daily.id',
@@ -97,6 +114,7 @@ class ZhihuDailySpider(scrapy.Spider):
                     'value': item.get('top', 0),
                 })
             request.meta['post'] = post_dict
+            self.item_list.append(post_dict)
             yield request
 
     def parse_post(self, response):
@@ -137,4 +155,9 @@ class ZhihuDailySpider(scrapy.Spider):
             })
         self.logger.debug(post)
 
-        yield post
+    def closed(self, reason):
+        self.logger.debug('结果列表: {}'.format(self.item_list))
+
+        output_strings = json.dumps(self.item_list, ensure_ascii=False)
+        with open(self.output_file, 'w') as fh:
+            fh.write(output_strings)
