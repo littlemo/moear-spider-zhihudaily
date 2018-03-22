@@ -20,6 +20,17 @@ class ZhihuDaily(base.SpiderBase):
     """
     知乎日报爬虫插件
     """
+    def hook_custom_options(self):
+        """
+        配置定制配置项钩子
+        ------------
+
+        该方法返回当前类的自定义配置项，由基类在 ``__init__`` 方法中调用，
+        调用点位于，Common默认全局配置完成后，用户元数据配置前
+
+        :returns: dict, 返回当前类的自定义配置项
+        """
+        return {}
 
     def register(self, *args, **kwargs):
         """
