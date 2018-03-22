@@ -11,11 +11,11 @@
 
 BOT_NAME = 'zhihudaily'
 
-SPIDER_MODULES = ['moear_spider_zhihudaily.zhihudaily.spiders']
-NEWSPIDER_MODULE = 'moear_spider_zhihudaily.zhihudaily.spiders'
+SPIDER_MODULES = ['moear_spider_zhihudaily.spiders']
+NEWSPIDER_MODULE = 'moear_spider_zhihudaily.spiders'
 
 DOWNLOADER_MIDDLEWARES = {
-    'moear_spider_zhihudaily.zhihudaily.middlewares.RandomUserAgent': 1,
+    'moear_spider_zhihudaily.middlewares.RandomUserAgent': 1,
 }
 
 
@@ -72,13 +72,13 @@ COOKIES_ENABLED = False
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'moear_spider_zhihudaily.zhihudaily.middlewares.MoearSpiderZhihudailySpiderMiddleware': 543,
+#    'moear_spider_zhihudaily.middlewares.MoearSpiderZhihudailySpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'moear_spider_zhihudaily.zhihudaily.middlewares.MoearSpiderZhihudailyDownloaderMiddleware': 543,
+#    'moear_spider_zhihudaily.middlewares.MoearSpiderZhihudailyDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -90,7 +90,7 @@ COOKIES_ENABLED = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'moear_spider_zhihudaily.zhihudaily.pipelines.MoearSpiderZhihudailyPipeline': 300,
+#    'moear_spider_zhihudaily.pipelines.MoearSpiderZhihudailyPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

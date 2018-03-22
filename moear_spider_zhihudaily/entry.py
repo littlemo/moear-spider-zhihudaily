@@ -5,8 +5,7 @@ from collections import OrderedDict
 from bs4 import BeautifulSoup
 
 from moear_api_common import base
-from .zhihudaily.spiders.zhihu_daily \
-    import ZhihuDailySpider as zhihu
+from .spiders.zhihu_daily import ZhihuDailySpider as zhihu
 from .crawler_script import CrawlerScript
 
 
