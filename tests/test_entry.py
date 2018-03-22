@@ -53,5 +53,5 @@ class TestSpiderEntryMethods(unittest.TestCase):
         rc = entry.ZhihuDaily().format(data)
         log.info(rc)
         self.assertIsInstance(rc, dict)
-        self.assertIn('热文', rc.keys())
-        self.assertIn('文章', rc.keys())
+        self.assertIn('头条', rc.keys())
+        self.assertIn('日报', rc.keys())
