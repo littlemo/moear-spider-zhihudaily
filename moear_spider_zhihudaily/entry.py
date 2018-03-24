@@ -72,7 +72,6 @@ class ZhihuDaily(base.SpiderBase):
         temp = tempfile.NamedTemporaryFile(mode='w+t')
 
         try:
-            print('temp.name => {}'.format(temp.name))
             crawler = CrawlerScript()
             crawler.crawl(output_file=temp.name)
 
@@ -100,11 +99,7 @@ class ZhihuDaily(base.SpiderBase):
         hot_list = []
         normal_list = []
         for item in data:
-            meta_dict = {}
             meta = item.get('meta', [])
-            for m in meta:
-                for (k, v) in m.items():
-                    meta_dict[m['name']] = m.get('value')
 
             # 如果标题为空，则迭代下一条目
             if not item.get('title'):
@@ -121,8 +116,8 @@ class ZhihuDaily(base.SpiderBase):
                 item['excerpt'] = excerpt
 
             # 从item中提取出section分组
-            top = meta_dict.pop('spider.zhihu_daily.top', '0')
-            item['meta'] = meta_dict
+            top = meta.pop('spider.zhihu_daily.top', '0')
+            item['meta'] = meta
             if str(top) == '1':
                 hot_list.append(item)
             else:

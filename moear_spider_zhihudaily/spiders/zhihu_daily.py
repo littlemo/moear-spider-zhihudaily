@@ -101,18 +101,13 @@ class ZhihuDailySpider(scrapy.Spider):
             post_dict = {
                 'spider': ZhihuDailySpider.name,
                 'date': date.strftime("%Y-%m-%d %H:%M:%S"),
-                'meta': [
-                    {
-                        'name': 'spider.zhihu_daily.id',
-                        'value': item.get('id', '')
-                    },
-                ]
+                'meta': {
+                    'spider.zhihu_daily.id': str(item.get('id', ''))
+                }
             }
             if item.get('top'):
-                post_dict['meta'].append({
-                    'name': 'spider.zhihu_daily.top',
-                    'value': item.get('top', 0),
-                })
+                post_dict['meta']['spider.zhihu_daily.top'] = \
+                    str(item.get('top', 0))
             request.meta['post'] = post_dict
             self.item_list.append(post_dict)
             yield request
@@ -149,10 +144,8 @@ class ZhihuDailySpider(scrapy.Spider):
         # 继续填充post数据
         image_back = content.get('images', [None])[0]
         if image_back:
-            post['meta'].append({
-                'name': 'moear.cover_image_slug',
-                'value': content.get('image', image_back),
-            })
+            post['meta']['moear.cover_image_slug'] = \
+                content.get('image', image_back)
         self.logger.debug(post)
 
     def closed(self, reason):
