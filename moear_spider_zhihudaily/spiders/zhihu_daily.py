@@ -60,6 +60,7 @@ class ZhihuDailySpider(scrapy.Spider):
         self.item_list = []
         self.output_file = kwargs.get('output_file', None)
         if not self.output_file:
+            # 此处逻辑用于命令行执行 ``scrapy crawl zhihu_daily`` 测试时的文件输出
             _base_dir = os.path.dirname(os.path.dirname(
                 os.path.abspath(__file__)))
             _output_file_default = os.path.join(
