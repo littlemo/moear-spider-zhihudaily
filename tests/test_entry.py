@@ -1,7 +1,9 @@
+import os
 import sys
 import logging
 import unittest
 
+from moear_api_common import utils
 from moear_spider_zhihudaily import entry
 
 
@@ -11,6 +13,9 @@ format = logging.Formatter("%(asctime)s - %(message)s")  # output format
 sh = logging.StreamHandler(stream=sys.stdout)  # output to standard output
 sh.setFormatter(format)
 log.addHandler(sh)
+
+_base_dir = os.path.dirname(os.path.abspath(__file__))
+_build_dir = os.path.join(_base_dir, '..', 'moear_spider_zhihudaily', 'build')
 
 
 class TestSpiderEntryMethods(unittest.TestCase):
@@ -31,6 +36,9 @@ class TestSpiderEntryMethods(unittest.TestCase):
 
     def test_100_crawl(self):
         rc = entry.ZhihuDaily().crawl()
+        utils.mkdirp(_build_dir)
+        with open(os.path.join(_build_dir, 'output.json'), 'w') as fh:
+            fh.write(rc)
         log.debug(rc)
 
     def test_200_format(self):
