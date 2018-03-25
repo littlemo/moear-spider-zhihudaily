@@ -92,16 +92,19 @@ class ZhihuDailySpider(scrapy.Spider):
                 self.logger.debug(item)
 
         # 处理今日文章，并抛出具体文章请求
-        self.logger.info('处理今日文章，共{:>2}篇'.format(
-            len(content['stories'])))
+        post_num = len(content['stories'])
+        self.logger.info('处理今日文章，共{:>2}篇'.format(post_num))
         for item in content['stories']:
             self.logger.info(item)
+            post_num = 0 if post_num < 0 else post_num
+            pub_time = date + datetime.timedelta(seconds=post_num)
+            post_num -= 1
 
             url = 'http://news-at.zhihu.com/api/4/news/{}'.format(item['id'])
             request = scrapy.Request(url, callback=self.parse_post)
             post_dict = {
                 'spider': ZhihuDailySpider.name,
-                'date': date.strftime("%Y-%m-%d %H:%M:%S"),
+                'date': pub_time.strftime("%Y-%m-%d %H:%M:%S"),
                 'meta': {
                     'spider.zhihu_daily.id': str(item.get('id', ''))
                 }
