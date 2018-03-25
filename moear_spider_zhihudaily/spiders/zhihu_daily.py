@@ -97,7 +97,7 @@ class ZhihuDailySpider(scrapy.Spider):
         for item in content['stories']:
             self.logger.info(item)
             post_num = 0 if post_num < 0 else post_num
-            pub_time = date + datetime.timedelta(seconds=post_num)
+            pub_time = date + datetime.timedelta(minutes=post_num)
             post_num -= 1
 
             url = 'http://news-at.zhihu.com/api/4/news/{}'.format(item['id'])
