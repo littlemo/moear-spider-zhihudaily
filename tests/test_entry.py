@@ -37,9 +37,10 @@ class TestSpiderEntryMethods(unittest.TestCase):
 
     def test_100_crawl(self):
         rc = entry.ZhihuDaily().crawl()
+        data = json.dumps(rc, ensure_ascii=False)
         utils.mkdirp(_build_dir)
         with open(os.path.join(_build_dir, 'crawl.json'), 'w') as fh:
-            fh.write(rc)
+            fh.write(data)
         log.debug(rc)
 
     def test_200_format(self):

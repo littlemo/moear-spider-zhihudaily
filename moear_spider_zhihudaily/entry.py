@@ -1,4 +1,5 @@
 import os
+import json
 import tempfile
 from collections import OrderedDict
 
@@ -67,7 +68,7 @@ class ZhihuDaily(base.SpiderBase):
 
         执行爬取操作，并阻塞直到爬取完成，返回结果数据
 
-        :returns: json, 返回符合接口定义的JSON包字符串
+        :returns: dict, 返回符合接口定义的字典对象
         """
         temp = tempfile.NamedTemporaryFile(mode='w+t')
 
@@ -76,7 +77,7 @@ class ZhihuDaily(base.SpiderBase):
             crawler.crawl(output_file=temp.name)
 
             temp.seek(0)
-            content = temp.read()
+            content = json.loads(temp.read(), encoding='UTF-8')
         finally:
             temp.close()
 
