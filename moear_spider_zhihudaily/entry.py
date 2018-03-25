@@ -105,9 +105,15 @@ class ZhihuDaily(base.SpiderBase):
             if not item.get('title'):
                 continue
 
+            soup = BeautifulSoup(item.get('content'), "lxml")
+
+            # 清洗文章内容，去除无用内容
+            for view_more in soup.select('.view-more'):
+                view_more.extract()
+            item['content'] = str(soup.div)
+
             # 处理文章摘要，若为空则根据正文自动生成并填充
             if not item.get('excerpt') and item.get('content'):
-                soup = BeautifulSoup(item.get('content'), "lxml")
                 word_limit = self.options.get(
                     'toc_desc_word_limit', 500)
                 content_list = soup.select('div.content')
