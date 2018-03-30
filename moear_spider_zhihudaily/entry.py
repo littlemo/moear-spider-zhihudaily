@@ -55,7 +55,7 @@ class ZhihuDaily(base.SpiderBase):
                     _images_path, 'cv_zhihudaily.jpg'),
                 'img_masthead': os.path.join(
                     _images_path, 'mh_zhihudaily.gif'),
-                'image_filter': '["zhihu.com/equation"]',
+                'image_filter': json.dumps(['zhihu.com/equation']),
                 'css_package': os.path.join(
                     _css_path, 'package.css')
             }
