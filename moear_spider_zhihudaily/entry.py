@@ -48,6 +48,12 @@ class ZhihuDaily(base.SpiderBase):
             'email': zhihu.email,
             'description': zhihu.description,
             'meta': {
+                # 爬取计划，参考 crontab 配置方法
+                'crawl_schedule': '0 23 * * *',
+
+                # 执行爬取的随机延时，单位秒，用于避免被 Ban
+                'crawl_random_delay': str(60 * 60),
+
                 'package_module': 'mobi',
                 'language': 'zh-CN',
                 'book_mode': 'periodical',  # 'periodical' | 'book'
