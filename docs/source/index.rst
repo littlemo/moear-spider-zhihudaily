@@ -17,6 +17,7 @@ moear-spider-zhihudaily
    :caption: 模块文档
 
    module/entry
+   module/zhihu_daily
 
 
 索引表
