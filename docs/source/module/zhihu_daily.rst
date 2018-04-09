@@ -4,4 +4,4 @@
 爬虫模块
 ========
 
-.. automodule:: moear_spider_zhihudaily.spiders.zhihu_daily
+.. autoclass:: moear_spider_zhihudaily.spiders.zhihu_daily.ZhihuDailySpider
