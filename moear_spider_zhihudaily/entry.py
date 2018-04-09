@@ -137,7 +137,7 @@ class ZhihuDaily(base.SpiderBase):
                 normal_list.append(item)
 
         if hot_list:
-            sections.setdefault('头条', hot_list)
+            sections.setdefault('热文', hot_list)
         if normal_list:
             sections.setdefault('日报', normal_list)
         return sections
