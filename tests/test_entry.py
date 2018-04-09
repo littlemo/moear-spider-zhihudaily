@@ -53,5 +53,5 @@ class TestSpiderEntryMethods(unittest.TestCase):
         with open(os.path.join(_build_dir, 'format.py'), 'w') as fh:
             fh.write(str(rc))
         self.assertIsInstance(rc, dict)
-        self.assertIn('头条', rc.keys())
+        self.assertIn('热闻', rc.keys())
         self.assertIn('日报', rc.keys())
