@@ -16,6 +16,7 @@ import os
 import sys
 import sphinx_rtd_theme
 sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../venv/lib/python3.5/site-packages/'))
 
 
 # -- Project information -----------------------------------------------------
@@ -63,7 +64,6 @@ autodoc_member_order = 'bysource'
 autoclass_content = 'both'
 
 autodoc_mock_imports = [
-    'PIL'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
