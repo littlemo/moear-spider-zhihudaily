@@ -41,6 +41,18 @@
         ├── __init__.py
         └── zhihu_daily.py          # 知乎日报的爬虫主体
 
+.. attention::
+
+    开发时注意需要在 ``setup.py`` 中添加如下配置，以便 `stevedore`_ 加载该插件::
+
+        entry_points={
+            'moear.spider': [
+                'zhihu_daily = moear_spider_zhihudaily.entry:ZhihuDaily',
+            ],
+        },
+
+    参考 `stevedore`_ 文档，将第三行内容替换为您的具体实现即可
+
 
 业务流程
 ========
@@ -317,5 +329,6 @@ meta
 .. _MoEar: https://github.com/littlemo/moear
 .. _Scrapy: https://github.com/scrapy/scrapy
 .. _moear-api-common: https://github.com/littlemo/moear-api-common
+.. _stevedore: https://docs.openstack.org/stevedore/latest/
 .. _Celery: https://github.com/celery/celery
 .. _Crontab: https://zh.wikipedia.org/wiki/Cron
