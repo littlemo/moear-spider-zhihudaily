@@ -27,10 +27,10 @@ setup(
             'https://github.com/littlemo/moear-spider-zhihudaily/issues',
     },
     install_requires=[
+        'Scrapy~=1.5.0',
         'beautifulsoup4~=4.6.0',
         'billiard~=3.5.0.3',
-        'moear-api-common~=1.0.0',
-        'Scrapy~=1.5.0',
+        'moear-api-common~=1.0.2',
     ],
     entry_points={
         'moear.spider': [
