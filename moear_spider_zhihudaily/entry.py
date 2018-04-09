@@ -89,7 +89,7 @@ class ZhihuDaily(base.SpiderBase):
     def format(self, data, *args, **kwargs):
         '''
         将传入的Post列表数据进行格式化处理。此处传入的 ``data`` 格式即为
-        :meth:`entry.crawl` 返回的格式，但具体内容可以不同，即此处保留了灵活度，
+        :meth:`.ZhihuDaily.crawl` 返回的格式，但具体内容可以不同，即此处保留了灵活度，
         可以对非当日文章对象进行格式化，制作相关主题的合集书籍
 
         :param data: 待处理的文章列表
