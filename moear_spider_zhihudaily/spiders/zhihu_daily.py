@@ -9,19 +9,19 @@ from moear_api_common import utils
 
 
 class ZhihuDailySpider(scrapy.Spider):
-    # 来源名称，唯一，长度<255，用于文章源模型索引创建后不可修改
+    #: 来源名称，唯一，长度<255，用于文章源模型索引创建后不可修改
     name = 'zhihu_daily'
 
-    # 显示名称，长度<255，Spider每次运行时更新
+    #: 显示名称，长度<255，Spider每次运行时更新
     display_name = "知乎日报"
 
-    # 组件作者，Spider每次运行时更新
+    #: 组件作者，Spider每次运行时更新
     author = "小貘"
 
-    # 组件作者邮箱，Spider每次运行时更新
+    #: 组件作者邮箱，Spider每次运行时更新
     email = "moore@moorehy.com"
 
-    # 描述信息，长度无限制，Spider每次运行时更新
+    #: 描述信息，长度无限制，Spider每次运行时更新
     description = \
         "每天三次，每次七分钟。在中国，资讯类移动应用的人均阅读时长是 5 分钟，" \
         "而在知乎日报，这个数字是 21"
@@ -31,8 +31,9 @@ class ZhihuDailySpider(scrapy.Spider):
     def __init__(self, date=None, *args, **kwargs):
         """
         知乎日报爬虫类，用于爬取&解析知乎日报页面&相关协议
-        :param date str: 爬取日期，命令行参数，默认为空，即爬取当日最新，内容格式：yyyymmdd
-        :param output_file str: (可选，关键字参数)结果输出文件，
+
+        :param str date: 爬取日期，命令行参数，默认为空，即爬取当日最新，内容格式：yyyymmdd
+        :param str output_file: (可选，关键字参数)结果输出文件，
             用以将最终爬取到的数据写入到指定文件中，默认为 moear_spider_zhihudaily
             下的 build 路径，建议仅作为测试时使用
         """
@@ -70,6 +71,11 @@ class ZhihuDailySpider(scrapy.Spider):
         self.logger.info('输出文件路径: {}'.format(self.output_file))
 
     def parse(self, response):
+        '''
+        根据对 ``start_urls`` 中提供链接的请求响应包内容，解析生成具体文章链接请求
+
+        :param Response response: 由 ``Scrapy`` 调用并传入的请求响应对象
+        '''
         content_raw = response.body.decode()
         self.logger.debug('响应body原始数据：{}'.format(content_raw))
         content = json.loads(content_raw, encoding='UTF-8')
@@ -117,6 +123,12 @@ class ZhihuDailySpider(scrapy.Spider):
             yield request
 
     def parse_post(self, response):
+        '''
+        根据 :meth:`.ZhihuDailySpider.parse` 中生成的具体文章地址，获取到文章内容，
+        并对其进行格式化处理，结果填充到对象属性 ``item_list`` 中
+
+        :param Response response: 由 ``Scrapy`` 调用并传入的请求响应对象
+        '''
         content = json.loads(response.body.decode(), encoding='UTF-8')
         post = response.meta['post']
 
@@ -153,6 +165,12 @@ class ZhihuDailySpider(scrapy.Spider):
         self.logger.debug(post)
 
     def closed(self, reason):
+        '''
+        异步爬取全部结束后，执行此关闭方法，对 ``item_list`` 中的数据进行 **JSON**
+        序列化，并输出到指定文件中，传递给 :meth:`.ZhihuDaily.crawl`
+
+        :param obj reason: 爬虫关闭原因
+        '''
         self.logger.debug('结果列表: {}'.format(self.item_list))
 
         output_strings = json.dumps(self.item_list, ensure_ascii=False)
