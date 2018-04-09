@@ -22,24 +22,20 @@ class ZhihuDaily(base.SpiderBase):
     """
     def hook_custom_options(self):
         """
-        配置定制配置项钩子
-        ------------
-
         该方法返回当前类的自定义配置项，由基类在 ``__init__`` 方法中调用，
         调用点位于，Common默认全局配置完成后，用户元数据配置前
 
-        :returns: dict, 返回当前类的自定义配置项
+        :return: 返回当前类的自定义配置项
+        :rtype: dict
         """
         return {}
 
     def register(self, *args, **kwargs):
         """
-        注册
-        ----
-
         调用方可根据主键字段进行爬虫的创建或更新操作
 
-        :returns: dict, 返回符合接口定义的字典数据
+        :return: 返回符合接口定义的字典数据
+        :rtype: dict
         """
         return {
             'name': zhihu.name,
@@ -69,12 +65,12 @@ class ZhihuDaily(base.SpiderBase):
 
     def crawl(self, *args, **kwargs):
         """
-        爬取
-        ----
+        执行爬取操作，并阻塞直到爬取完成，返回结果数据。
+        此处考虑到 Scrapy 本身的并发特性，故通过临时文件方式做数据传递，
+        将临时路径传递到爬虫业务中，并在爬取结束后对文件进行读取、 JSON 反序列化，返回
 
-        执行爬取操作，并阻塞直到爬取完成，返回结果数据
-
-        :returns: dict, 返回符合接口定义的字典对象
+        :return: 返回符合接口定义的字典对象
+        :rtype: dict
         """
         temp = tempfile.NamedTemporaryFile(mode='w+t')
 
@@ -92,15 +88,15 @@ class ZhihuDaily(base.SpiderBase):
 
     def format(self, data, *args, **kwargs):
         """
-        格式化
-        ------
-
-        将传入的Post列表数据进行格式化处理
+        将传入的Post列表数据进行格式化处理。此处传入的 ``data`` 格式即为
+        :meth:`entry.crawl` 返回的格式，但具体内容可以不同，即此处保留了灵活度，
+        可以对非当日文章对象进行格式化，制作相关主题的合集书籍
 
         :param data: 待处理的文章列表
         :type data: list
 
-        :returns: dict, 返回符合mobi打包需求的定制化数据结构
+        :return: 返回符合mobi打包需求的定制化数据结构
+        :rtype: dict
         """
         sections = OrderedDict()
         hot_list = []
