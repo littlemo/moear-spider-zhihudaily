@@ -44,4 +44,5 @@
 
 .. _MoEar: https://github.com/littlemo/moear
 .. _Scrapy: https://github.com/scrapy/scrapy
+.. _moear-api-common: https://github.com/littlemo/moear-api-common
 .. _Celery: https://github.com/celery/celery
