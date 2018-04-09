@@ -32,10 +32,10 @@ class ZhihuDailySpider(scrapy.Spider):
         """
         知乎日报爬虫类，用于爬取&解析知乎日报页面&相关协议
 
-        :param str date: 爬取日期，命令行参数，默认为空，即爬取当日最新，内容格式：yyyymmdd
+        :param str date: 爬取日期，命令行参数，默认为空，即爬取当日最新，内容格式：``yyyymmdd``
         :param str output_file: (可选，关键字参数)结果输出文件，
-            用以将最终爬取到的数据写入到指定文件中，默认为 moear_spider_zhihudaily
-            下的 build 路径，建议仅作为测试时使用
+            用以将最终爬取到的数据写入到指定文件中，默认为 ``moear_spider_zhihudaily``
+            下的 ``build`` 路径，建议仅作为测试时使用
         """
         super(ZhihuDailySpider, self).__init__(*args, **kwargs)
 
