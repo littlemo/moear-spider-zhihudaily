@@ -1,4 +1,4 @@
-include moear_spider_zhihudaily/assets/**/*
-exclude **/.DS_Store
+graft moear_spider_zhihudaily/assets
+global-exclude .DS_Store
 prune docs/build
 prune moear_spider_zhihudaily/build
