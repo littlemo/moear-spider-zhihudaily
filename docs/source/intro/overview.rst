@@ -326,9 +326,9 @@ meta
 返回的文章内容，消化掉元数据中相应专用字段后的数据
 
 
-.. _MoEar: https://github.com/littlemo/moear
-.. _Scrapy: https://github.com/scrapy/scrapy
-.. _moear-api-common: https://github.com/littlemo/moear-api-common
+.. _MoEar: http://moear.rtfd.io
+.. _Scrapy: http://scrapy.rtfd.io
+.. _moear-api-common: http://moear-api-common.rtfd.io
 .. _stevedore: https://docs.openstack.org/stevedore/latest/
-.. _Celery: https://github.com/celery/celery
+.. _Celery: http://docs.celeryproject.org
 .. _Crontab: https://zh.wikipedia.org/wiki/Cron
