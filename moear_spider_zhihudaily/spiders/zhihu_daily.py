@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import html
 import scrapy
 import datetime
 import json
@@ -136,7 +137,7 @@ class ZhihuDailySpider(scrapy.Spider):
         if not all([post['origin_url']]):
             raise ValueError('原文地址为空')
 
-        post['title'] = content.get('title', '')
+        post['title'] = html.escape(content.get('title', ''))
         if not all([post['title']]):
             raise ValueError('文章标题为空 - {}'.format(post.get('origin_url')))
 
@@ -154,7 +155,7 @@ class ZhihuDailySpider(scrapy.Spider):
                 author_list.append(
                     author.string.rstrip('，, ').replace('，', ','))
             author_list = list(set(author_list))
-            post['author'] = '，'.join(author_list)
+            post['author'] = html.escape('，'.join(author_list))
         post['content'] = str(soup.div)
 
         # 继续填充post数据
