@@ -1,5 +1,6 @@
 import os
 import json
+import html
 import tempfile
 from collections import OrderedDict
 
@@ -123,7 +124,8 @@ class ZhihuDaily(base.SpiderBase):
                 content_list = soup.select('div.content')
                 content_list = [content.get_text() for content in content_list]
                 excerpt = ' '.join(content_list)[:word_limit]
-                item['excerpt'] = excerpt
+                # 此处摘要信息需进行HTML转义，否则会造成toc.ncx中tag处理错误
+                item['excerpt'] = html.escape(excerpt)
 
             # 从item中提取出section分组
             top = meta.pop('spider.zhihu_daily.top', '0')
