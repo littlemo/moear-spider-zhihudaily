@@ -78,7 +78,7 @@ class ZhihuDaily(base.SpiderBase):
         try:
             crawler = CrawlerScript()
             # 调试时可指定明确日期参数，如：date='20180423'
-            crawler.crawl(output_file=temp.name)
+            crawler.crawl(output_file=temp.name, *args, **kwargs)
 
             temp.seek(0)
             content = json.loads(temp.read(), encoding='UTF-8')
