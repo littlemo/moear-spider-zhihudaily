@@ -10,7 +10,7 @@ setup(
     author_email='moore@moorehy.com',
     maintainer='littlemo',
     maintainer_email='moore@moorehy.com',
-    version='1.1.0',
+    version='1.1.1',
     description='MoEar爬虫功能扩展插件 - 知乎日报',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
