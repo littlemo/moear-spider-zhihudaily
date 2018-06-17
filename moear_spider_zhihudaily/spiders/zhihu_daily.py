@@ -53,7 +53,7 @@ class ZhihuDailySpider(scrapy.Spider):
                 self.logger.info(
                     '格式化后的知乎爬取日期参数：{}'.format(spider_date_str))
                 self.start_urls = [
-                    'http://news.at.zhihu.com/api/4/news/before/{}'.format(
+                    'http://news-at.zhihu.com/api/4/news/before/{}'.format(
                         spider_date_str)]
             except ValueError:
                 self.logger.error('指定的爬取日期错误(yyymmdd)：{}'.format(date))
